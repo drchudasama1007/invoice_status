@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+       <!--sale.order Inherit Form View to Modify it -->
+       <record id="sale_order_inherit_form_view" model="ir.ui.view">
+           <field name="name">sale.order.inherit.form.view</field>
+           <field name="model">sale.order</field>
+           <field name="inherit_id" ref="sale.view_order_form"/>
+           <field name="arch" type="xml">
+               <xpath expr="//field[@name='payment_term_id']" position="before">
+                   <field name="paid_state"/>
+               </xpath>
+               <xpath expr="//div[@name='button_box']" position="after">
+                    <widget name="web_ribbon" title="Paid"
+                                attrs="{'invisible': [('paid_state', '!=', 'paid')]}"/>
+
+               </xpath>
+           </field>
+       </record>
+
+        <!--sale.order Inherit Tree View to Modify it -->
+       <record id="sale_order_inherit_tree_view" model="ir.ui.view">
+           <field name="name">sale.order.inherit.tree.view</field>
+           <field name="model">sale.order</field>
+           <field name="inherit_id" ref="sale.view_order_tree"/>
+           <field name="arch" type="xml">
+               <xpath expr="//field[@name='invoice_status']" position="before">
+                   <field name="paid_state"/>
+               </xpath>
+           </field>
+       </record>
+
+    </data>
+</odoo>
